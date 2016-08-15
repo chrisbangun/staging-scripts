@@ -3,13 +3,13 @@
 
 print_version_all(){
   
-  services=("tv" "fops" "hops" "tripops" "pg" "fb" "frs" "hinv" "ne" "nei" "tap")
-  servicesProduction=("tv10" "fops01" "hops-app-01" "tripops-app-02" "payment01" "fb04" "frs14" "hinv01" "ne04" "nei04" "tap01")
+  services=()
+  servicesProduction=()
   
   if [ "$2" == "production" ]; then
     i=0
     while [ $i -lt ${#services[*]} ]; do
-      command=`ssh ${servicesProduction[$i]} cat /var/traveloka/running/${services[$i]}/WEB-INF/classes/build.properties`
+      command=`ssh ${servicesProduction[$i]} cat /var//running/${services[$i]}/WEB-INF/classes/build.properties`
       if [ $? -ne 0 ]; then
         echo "could not execute $command"
       else
@@ -22,7 +22,7 @@ print_version_all(){
   fi
   
   for service in "${services[@]}"; do
-    command=`ssh $2 cat /var/traveloka/running/$service/WEB-INF/classes/build.properties`
+    command=`ssh $2 cat /var//running/$service/WEB-INF/classes/build.properties`
     if [ $? -ne 0 ]; then
       echo "could not execute $command"
     else
@@ -37,9 +37,9 @@ print_version(){
     print_version_all $1 $2
     exit
   elif [ "$1" == "fetcher" ]; then
-    command=`ssh $2 cat /var/traveloka/fetcher/build.properties`
+    command=`ssh $2 cat /var//fetcher/build.properties`
   else
-    command=`ssh $2 cat /var/traveloka/running/$1/WEB-INF/classes/build.properties`
+    command=`ssh $2 cat /var//running/$1/WEB-INF/classes/build.properties`
   fi
 
   if [ $? -ne 0 ]; then
